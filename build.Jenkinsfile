@@ -2,6 +2,9 @@ pipeline {
 
     agent any
 
+    ECR_URL = "854171615125.dkr.ecr.us-east-1.amazonaws.com"
+    REPO_NAME="tushar-yolo5"
+
 
 
     stages {
