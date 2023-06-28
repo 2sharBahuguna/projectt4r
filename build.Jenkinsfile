@@ -14,7 +14,7 @@ pipeline {
                 
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 854171615125.dkr.ecr.us-east-1.amazonaws.com
 
-                    echo authenticating..
+                    
 
                 '''
 
@@ -31,11 +31,11 @@ pipeline {
                 
                 
 
-               sh '  
-               
-                    docker build -t tba-simple-flask .
-                docker tag tba-simple-flask:latest 854171615125.dkr.ecr.us-east-1.amazonaws.com/tba-simple-flask:latest
-                echo building...'
+               sh '''  
+                cd yolo5
+            
+                docker build -t tushar-yolo5 .
+               '''
 
             }
 
@@ -49,23 +49,15 @@ pipeline {
 
                 
 
-                sh 'echo pushing...
-
-                    docker push 854171615125.dkr.ecr.us-east-1.amazonaws.com/tba-simple-flask:latest
+                sh '''
+`                   docker tag tushar-yolo5:latest 854171615125.dkr.ecr.us-east-1.amazonaws.com/tushar-yolo5:latest
+                    docker push 854171615125.dkr.ecr.us-east-1.amazonaws.com/tushar-yolo5:latest
                 
-                '
+                '''
 
             }
 
         }
 
     }
-
-}
-stage('Build Yolo5 app') {
-   steps {
-       sh '''
-           
-       '''
-   }
 }
