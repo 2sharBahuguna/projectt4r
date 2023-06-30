@@ -1,3 +1,6 @@
+import os
+
+
 pipeline{
     agent any
 

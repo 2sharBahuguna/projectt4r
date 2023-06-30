@@ -5,6 +5,7 @@ import requests
 from collections import Counter
 
 YOLO_URL = 'http://localhost:8081'
+token = "6059645923:AAF0zZIk4EQSRusn1ECc_14MTWC_p4FuGYs"
 
 
 class Bot:
@@ -74,7 +75,37 @@ class QuoteBot(Bot):
 
 
 class ObjectDetectionBot(Bot):
-    pass
+    def handle_message(self, message):
+        logger.info(f'Incoming message: {message}')
+        return super().handle_message(message)
+        
+        
+        if self.is_current_msg_photo():
+            photo_path = self.download_user_photo()
+
+            # Send the photo to the YOLO service for object detection
+            res = requests.post(f'{YOLO_URL}/predict', files={
+                'file': (photo_path, open(photo_path, 'rb'), 'image/png')
+            })
+
+            if res.status_code == 200:
+                detections = res.json()
+                logger.info(f'response from detect service with {detections}')
+
+                # calc summary
+                element_counts = Counter([l['class'] for l in detections])
+                summary = 'Objects Detected:\n'
+                for element, count in element_counts.items():
+                    summary += f"{element}: {count}\n"
+
+                self.send_text(summary)
+
+            else:
+                self.send_text('Failed to perform object detection. Please try again later.')
+
+        else:
+            self.send_text('Please send a photo for object detection.')
+
 
 
 if __name__ == '__main__':
@@ -83,5 +114,5 @@ if __name__ == '__main__':
     with open('.telegramToken') as f:
         _token = f.read()
 
-    my_bot = Bot(_token)
+    my_bot = Bot(token)
     my_bot.start()

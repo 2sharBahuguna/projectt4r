@@ -1,5 +1,7 @@
+import logging
 from pathlib import Path
 from flask import Flask, render_template, flash, request, redirect
+from dotenv import load_dotenv
 import os
 from werkzeug.utils import secure_filename
 from detect import run
@@ -16,6 +18,8 @@ with open('config.json') as f:
     config = json.load(f)
 
 bucket_name = config['img_bucket']
+
+load_dotenv()
 
 with open("data/coco128.yaml", "r") as stream:
     names = yaml.safe_load(stream)['names']
@@ -89,6 +93,21 @@ def upload_file_api():
 
     return f'Bad file format, allowed files are {ALLOWED_EXTENSIONS}', 400
 
+def upload_file_s3(filename, buckets3_name, object_name):
+    if object_name is None:
+        object_name = filename
+    try:
+        response = s3_client.upload_file(filename, buckets3_name, object_name)
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
+
 
 if __name__ == "__main__":
+    s3_client = boto3.client('s3',
+                             aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+                             aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+                             region_name=os.environ['AWS_DEFAULT_REGION']
+                             )
     app.run(host='0.0.0.0', port=8081, debug=True)
