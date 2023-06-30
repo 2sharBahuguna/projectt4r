@@ -18,6 +18,9 @@ class Bot:
 
         self.current_msg = None
 
+
+        
+
     def _bot_internal_handler(self, messages):
         """Bot internal messages handler"""
         for message in messages:
