@@ -1,8 +1,12 @@
-import os
-
-
 pipeline{
     agent any
+
+
+    environment {
+        AWS_REGION = 'us-east-1'
+        ECR_REGISTRY_URL = '854171615125.dkr.ecr.us-east-1.amazonaws.com'
+        DOCKER_IMAGE_NAME = 'tb22-docker-image'
+        DOCKER_IMAGE_TAG = '0.1.0'
 
 
 
