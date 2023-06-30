@@ -38,6 +38,7 @@ pipeline{
                 build job: 'Yolo5Deploy', wait: false, parameters:[
                     string(name: 'YOLO5_IMAGE_URL', value: "854171615125.dkr.ecr.us-east-1.amazonaws.com/tushar-yolo5:latest")]
             }
+            '''ok'''
         }
     }
 }
