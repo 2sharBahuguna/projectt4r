@@ -4,7 +4,9 @@ import os
 import requests
 from collections import Counter
 
-YOLO_URL = 'http://localhost:8081'
+
+
+YOLO_URL = 'http://localhost:8081' 
 token = "6059645923:AAF0zZIk4EQSRusn1ECc_14MTWC_p4FuGYs"
 
 
