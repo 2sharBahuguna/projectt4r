@@ -2,7 +2,7 @@ flask
 pyyaml
 loguru
 boto3
-aws-cli
+
 # testing
 
 pylint

@@ -7,7 +7,8 @@ from collections import Counter
 
 
 YOLO_URL = 'http://localhost:8081' 
-token = "6059645923:AAF0zZIk4EQSRusn1ECc_14MTWC_p4FuGYs"
+token="6254376549:AAEXZ2YntroLFRgQHCrjn0_3DD7deXoehYM"
+
 
 
 class Bot:
@@ -116,8 +117,7 @@ class ObjectDetectionBot(Bot):
 if __name__ == '__main__':
     # TODO - in the 'polyBot' dir, create a file called .telegramToken and store your bot token there.
     #  ADD THE .telegramToken FILE TO .gitignore, NEVER COMMIT IT!!!
-    with open('.telegramToken') as f:
-        _token = f.read()
+    
 
     my_bot = Bot(token)
     my_bot.start()

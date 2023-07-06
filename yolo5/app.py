@@ -1,11 +1,11 @@
 import logging
 from pathlib import Path
 from flask import Flask, render_template, flash, request, redirect
-from dotenv import load_dotenv
+
 import os
 from werkzeug.utils import secure_filename
 from detect import run
-from utils import ALLOWED_EXTENSIONS, allowed_file
+
 import uuid
 import yaml
 from loguru import logger
@@ -19,7 +19,7 @@ with open('config.json') as f:
 
 bucket_name = config['img_bucket']
 
-load_dotenv()
+
 
 with open("data/coco128.yaml", "r") as stream:
     names = yaml.safe_load(stream)['names']
